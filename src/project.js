@@ -24,7 +24,7 @@ export class Project {
 
     // Getters
     getName() {
-        return this.#name.toUpperCase();
+        return this.#name;
     }
 
     getTodoList() {
