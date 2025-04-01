@@ -3,12 +3,14 @@ export class Todo {
     #description = "";
     #dueDate;
     #priority; // 0 - Lowest Priority; 1 - Normal Priority; 2 - Highest Priority
+    #complete;
 
-    constructor(title="No Title", desc="No Description", dueDate=null, priority=1) {
+    constructor(title="No Title", desc="No Description", dueDate=null, priority=1, complete=false) {
         this.#title = title;
         this.#description = desc;
         this.#dueDate = dueDate;
         this.#priority = priority;
+        this.#complete = complete;
     }
 
     // Getters
@@ -29,6 +31,10 @@ export class Todo {
         return this.#priority;
     }
 
+    getComplete() {
+        return this.#complete;
+    }
+
     // Setters
     changeTitle(newTitle) {
         this.#title = newTitle;
@@ -44,5 +50,9 @@ export class Todo {
 
     changePriority(newPriority) {
         this.#priority = newPriority;
+    }
+
+    changeComplete() {
+        this.#complete = !this.#complete;
     }
 }
