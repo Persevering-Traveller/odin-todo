@@ -15,7 +15,7 @@ export class Project {
     }
 
     removeTodo(index) {
-        if(index < 0 || index > this.#todos.length) {
+        if(index < 0 || index >= this.#todos.length) {
             console.error("Requested Todo index out of bounds");
             return;
         }
@@ -32,7 +32,7 @@ export class Project {
     }
 
     getTodo(index) {
-        if(index < 0 || index > this.#todos.length) {
+        if(index < 0 || index >= this.#todos.length) {
             console.error("Requested Todo index out of bounds");
             return;
         }
