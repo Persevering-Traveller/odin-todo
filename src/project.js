@@ -10,7 +10,7 @@ export class Project {
         this.#color = color;
     }
 
-    addTodo(title, desc, dueDate=null, priority=1) {
+    addTodo(title="No Title", desc="No Description", dueDate=null, priority=1) {
         this.#todos.push(new Todo(title, desc, dueDate, priority));
     }
 

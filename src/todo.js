@@ -4,7 +4,7 @@ export class Todo {
     #dueDate;
     #priority; // 0 - Lowest Priority; 1 - Normal Priority; 2 - Highest Priority
 
-    constructor(title, desc, dueDate=null, priority=1) {
+    constructor(title="No Title", desc="No Description", dueDate=null, priority=1) {
         this.#title = title;
         this.#description = desc;
         this.#dueDate = dueDate;
