@@ -19,7 +19,7 @@ export class Project {
             console.error("Requested Todo index out of bounds");
             return;
         }
-        this.#todos = this.#todos.filter((todo, i) => { if(i != index) todo; });
+        this.#todos = this.#todos.filter((todo, i) => { if(i != index) return todo; });
     }
 
     // Getters
