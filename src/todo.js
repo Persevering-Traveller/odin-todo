@@ -23,8 +23,11 @@ export class Todo {
     }
 
     getDueDate() {
-        // TODO: Format this into an easy to read string
-        return this.#dueDate;
+        // MM/DD/YY
+        const dueDate = `${this.#dueDate.getMonth()}/` +
+                        `${this.#dueDate.getDate()}/` +
+                        `${this.#dueDate.getFullYear().toString().slice(2)}`;
+        return dueDate;
     }
 
     getPriority() {
