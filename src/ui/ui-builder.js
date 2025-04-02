@@ -11,6 +11,7 @@ export class UIBuilder {
 
     static build() {
         const contentArea = document.querySelector("#content");
+        this.#clearElementChildren(contentArea);
 
         const title = this.#makeElement("div", "projects-title", "Todos");
         const projectsContainer = this.#buildProjectsContainer();
@@ -81,9 +82,7 @@ export class UIBuilder {
         projectNameEntry.setAttribute("type", "text");
         form.appendChild(projectNameEntry);
 
-        const submitBtn = document.createElement("button");
-        submitBtn.setAttribute("type", "submit");
-        submitBtn.textContent = "Submit";
+        const submitBtn = this.#makeElement("button", "submit-btn", "Submit");
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
             this.#projects.push(new Project(projectNameEntry.value));
@@ -91,8 +90,7 @@ export class UIBuilder {
             this.build();
         });
 
-        const closeBtn = document.createElement("button");
-        closeBtn.textContent = "Close";
+        const closeBtn = this.#makeElement("button", "close-btn", "Close");
         closeBtn.addEventListener("click", (e) => {
             e.preventDefault();
             modal.close();
