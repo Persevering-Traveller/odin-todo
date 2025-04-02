@@ -1,3 +1,5 @@
+import { Project } from "../project";
+
 export class UIBuilder {
     static #projects = [];
 
@@ -65,6 +67,37 @@ export class UIBuilder {
     }
 
     static #buildNewProjectModal() {
-        // TODO: Build a modal that lets users input a project title
+        const modal = document.querySelector("#modal");
+        this.#clearElementChildren(modal);
+
+        const form = this.#makeElement("form", "form");
+        form.setAttribute("action", "");
+        form.setAttribute("method", "post");
+
+        const projectNameEntry = this.#makeElement("input", "form-name-entry");
+        projectNameEntry.setAttribute("type", "text");
+        form.appendChild(projectNameEntry);
+
+        const submitBtn = document.createElement("button");
+        submitBtn.setAttribute("type", "submit");
+        submitBtn.textContent = "Submit";
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            this.#projects.push(new Project(projectNameEntry.value));
+            modal.close();
+            this.build();
+        });
+
+        const closeBtn = document.createElement("button");
+        closeBtn.textContent = "Close";
+        closeBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            modal.close();
+        });
+
+        modal.appendChild(form);
+        modal.appendChild(submitBtn);
+        modal.appendChild(closeBtn);
+        return modal;
     } 
 }
