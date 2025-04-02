@@ -39,7 +39,10 @@ export class UIBuilder {
             projectsContainer.appendChild(this.#buildProjectCard(project));
         });
         const addProjectBtn = this.#makeElement("button", "add-project-btn", "+");
-        // TODO: Add on click event that opens a New Project Modal
+        addProjectBtn.addEventListener("click", () => {
+            const newModal = this.#buildNewProjectModal();
+            newModal.showModal();
+        });
         projectsContainer.appendChild(addProjectBtn);
 
         return projectsContainer;
