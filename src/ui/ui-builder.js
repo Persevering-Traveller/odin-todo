@@ -29,15 +29,8 @@ export class UIBuilder {
 
     static #buildProjectsContainer() {
         const projectsContainer = this.#makeElement("div", "projects-container");
-
         this.#projects.forEach((project) =>  {
-            // TODO: Build a Project card for each project in the projects list
-            console.log(project.getTodoList());
-            project.getTodoList().forEach((todo) => {
-                console.log(todo.getTitle());
-                console.log(todo.getDesc());
-                console.log(todo.getDueDate());
-            });
+            projectsContainer.appendChild(this.#buildProjectCard(project));
         });
         const addProjectBtn = this.#makeElement("button", "add-project-btn", "+");
         // TODO: Add on click event that opens a New Project Modal
@@ -47,7 +40,24 @@ export class UIBuilder {
     }  
 
     static #buildProjectCard(project) {
-        // TODO: Build a project card to be displayed in the projectsContainer
+        const card = this.#makeElement("div", "project-card");
+        const projectName = this.#makeElement("div", "project-card-title", project.getName());
+
+        const todoList = this.#makeElement("ul", "project-card-todo-list");
+        // Only have 3 Todo titles in a project card, otherwise, put an elipsis
+        const todoTitles = project.getTodoTitles();
+        todoTitles.slice(0, 3).forEach((todoTitle) => {
+            const todoItem = this.#makeElement("li", "project-card-todo-title", todoTitle);
+            todoList.appendChild(todoItem);
+        });
+        if(todoTitles.length > 3) {
+            const elipsis = this.#makeElement("li", "project-card-todo-title", "...");
+            todoList.appendChild(elipsis);
+        }
+
+        card.appendChild(projectName);
+        card.appendChild(todoList);
+        return card;
     }
 
     static #buildNewProjectModal() {
