@@ -12,7 +12,7 @@ export class UIBuilder {
 
         const title = this.#makeElement("div", "projects-title", "Todos");
         const projectsContainer = this.#buildProjectsContainer();
-        
+
         contentArea.appendChild(title);
         contentArea.appendChild(projectsContainer);
     }
@@ -23,6 +23,12 @@ export class UIBuilder {
         element.textContent = text;
 
         return element;
+    }
+
+    static #clearElementChildren(element) {
+        while(element.hasChildNodes()) {
+            element.removeChild(element.firstElementChild);
+        }
     }
 
     static #buildProjectsContainer() {
