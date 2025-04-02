@@ -1,10 +1,5 @@
 export class UIBuilder {
     static #projects = [];
-    static #contentArea;
-
-    static {
-        this.#contentArea = document.querySelector("#content");
-    }
 
     static loadProjects(projects) {
         for(const project of projects) {
@@ -13,10 +8,13 @@ export class UIBuilder {
     }
 
     static build() {
+        const contentArea = document.querySelector("#content");
+
         const title = this.#makeElement("div", "projects-title", "Todos");
         const projectsContainer = this.#buildProjectsContainer();
-        this.#contentArea.appendChild(title);
-        this.#contentArea.appendChild(projectsContainer);
+        
+        contentArea.appendChild(title);
+        contentArea.appendChild(projectsContainer);
     }
 
     static #makeElement(type, className, text="") {
