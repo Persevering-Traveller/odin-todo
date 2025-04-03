@@ -110,7 +110,7 @@ export class UIBuilder {
         this.#clearElementChildren(contentArea);
 
         const title = this.#makeElement("div", "project-title", project.getName());
-        const todosContainer = this.#buildTodosContainer(project.getTodoList());
+        const todosContainer = this.#buildTodosContainer(project);
 
         const backBtn = this.#makeElement("button", "back-btn", "<-");
         backBtn.addEventListener("click", () => {
@@ -122,10 +122,10 @@ export class UIBuilder {
         contentArea.appendChild(todosContainer);
     }
 
-    static #buildTodosContainer(allTodos) {
+    static #buildTodosContainer(project) {
         // TODO: Build container that will list out each todo's properties
         const todosContainer = this.#makeElement("div", "todos");
-        allTodos.forEach((todo) => {
+        project.getTodoList().forEach((todo) => {
             const todoItem = this.#makeElement("div", "todo-item");
             // TODO: Make each todo clickable that will open to the Todo View
 
