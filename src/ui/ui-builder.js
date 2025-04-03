@@ -126,7 +126,7 @@ export class UIBuilder {
         const todosContainer = this.#makeElement("div", "todos");
         let allTodos = this.#buildTodoItems(project);
 
-        /* TODO: append each todo into the container in the following priority order:
+        /* Append each todo into the container in the following priority order:
             Due in 3 Days:
                 1) High Priority Todo
                 2) Normal Priority Todo
@@ -135,6 +135,19 @@ export class UIBuilder {
             5) Normal Priority Todo
             6) Low Priority Todo
         */
+        const today = new Date();
+        project.getTodoList().forEach((todo, i) => {
+            if(todo.getDueDate() == null) // Some Todos don't have due dates
+                return; 
+
+            if(todo.getDueDate().getFullYear() === today.getFullYear() &&
+               todo.getDueDate().getMonth() === today.getMonth() &&
+               todo.getDueDate().getDate() - today.getDate() <= 3) {
+                   todosContainer.appendChild(allTodos[i]); // allTodos is in the same order as project.todos
+                   allTodos = allTodos.filter((_, index) => index !== i );
+            }
+        });
+        allTodos.forEach(todo => todosContainer.append(todo));
 
         return todosContainer;
     }
