@@ -125,7 +125,7 @@ export class UIBuilder {
     static #buildTodosContainer(project) {
         // TODO: Build container that will list out each todo's properties
         const todosContainer = this.#makeElement("div", "todos");
-        project.getTodoList().forEach((todo) => {
+        project.getTodoList().forEach((todo, i) => {
             const todoItem = this.#makeElement("div", "todo-item");
             // TODO: Make each todo clickable that will open to the Todo View
 
@@ -144,7 +144,7 @@ export class UIBuilder {
 
             const deleteBtn = this.#makeElement("button", "delete-btn", "X");
             deleteBtn.addEventListener("click", () => {
-                // TODO: Remove todo from project.todos
+                project.removeTodo(i);
                 todoItem.remove();
             });
 
