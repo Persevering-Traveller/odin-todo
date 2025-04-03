@@ -28,7 +28,7 @@ export class Todo {
 
     prettyPrintDate() {
         // MM/DD/YY
-        const dueDate = `${this.#dueDate.getMonth()}/` +
+        const dueDate = `${(this.#dueDate.getMonth() + 1)}/` + // WHY are Months started from 0 in Date()!?!?!?!
                         `${this.#dueDate.getDate()}/` +
                         `${this.#dueDate.getFullYear().toString().slice(2)}`;
         return dueDate;
