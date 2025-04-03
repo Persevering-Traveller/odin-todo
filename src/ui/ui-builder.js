@@ -13,8 +13,8 @@ export class UIBuilder {
         const contentArea = document.querySelector("#content");
         this.#clearElementChildren(contentArea);
 
-        const title = this.#makeElement("div", "projects-title", "Todos");
-        const projectsContainer = this.#buildProjectsContainer();
+        const title = this.#makeElement("div", "all-projects-title", "Todos");
+        const projectsContainer = this.#buildAllProjectsContainer();
 
         contentArea.appendChild(title);
         contentArea.appendChild(projectsContainer);
@@ -34,8 +34,8 @@ export class UIBuilder {
         }
     }
 
-    static #buildProjectsContainer() {
-        const projectsContainer = this.#makeElement("div", "projects-container");
+    static #buildAllProjectsContainer() {
+        const projectsContainer = this.#makeElement("div", "all-projects-container");
         this.#projects.forEach((project) =>  {
             projectsContainer.appendChild(this.#buildProjectCard(project));
         });
