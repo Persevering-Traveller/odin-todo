@@ -137,7 +137,7 @@ export class UIBuilder {
         */
         const today = new Date();
         project.getTodoList().forEach((todo, i) => {
-            if(todo.getDueDate() == null) // Some Todos don't have due dates
+            if(todo.getDueDate() === null) // Some Todos don't have due dates
                 return; 
 
             if(todo.getDueDate().getFullYear() === today.getFullYear() &&
@@ -169,7 +169,7 @@ export class UIBuilder {
 
             const title = this.#makeElement("div", "todo-title", todo.getTitle());
             const description = this.#makeElement("div", "todo-desc", todo.getDesc());
-            const dueDate = this.#makeElement("div", "todo-due", (todo.getDueDate() !== null) ? todo.getDueDate() : "");
+            const dueDate = this.#makeElement("div", "todo-due", (todo.getDueDate() !== null) ? todo.prettyPrintDate() : "");
 
             const deleteBtn = this.#makeElement("button", "delete-btn", "X");
             deleteBtn.addEventListener("click", () => {
