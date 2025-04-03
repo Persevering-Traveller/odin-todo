@@ -123,8 +123,24 @@ export class UIBuilder {
     }
 
     static #buildTodosContainer(project) {
-        // TODO: Build container that will list out each todo's properties
         const todosContainer = this.#makeElement("div", "todos");
+        let allTodos = this.#buildTodoItems(project);
+
+        /* TODO: append each todo into the container in the following priority order:
+            Due in 3 Days:
+                1) High Priority Todo
+                2) Normal Priority Todo
+                3) Low Priority Todo
+            4) High Priority Todo
+            5) Normal Priority Todo
+            6) Low Priority Todo
+        */
+
+        return todosContainer;
+    }
+
+    static #buildTodoItems(project) {
+        let todos = [];
         project.getTodoList().forEach((todo, i) => {
             const todoItem = this.#makeElement("div", "todo-item");
             // TODO: Make each todo clickable that will open to the Todo View
@@ -154,9 +170,9 @@ export class UIBuilder {
             todoItem.appendChild(dueDate);
             todoItem.appendChild(deleteBtn);
 
-            todosContainer.appendChild(todoItem);
+            todos.push(todoItem);
         });
 
-        return todosContainer;
+        return todos;
     }
 }
