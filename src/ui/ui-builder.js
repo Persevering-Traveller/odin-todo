@@ -119,11 +119,44 @@ export class UIBuilder {
 
         contentArea.appendChild(backBtn);
         contentArea.appendChild(title);
-        //contentArea.appendChild(todosContainer);
+        contentArea.appendChild(todosContainer);
     }
 
     static #buildTodosContainer(allTodos) {
         // TODO: Build container that will list out each todo's properties
-        // TODO: Make each todo clickable that will open to the Todo View
+        const todosContainer = this.#makeElement("div", "todos");
+        allTodos.forEach((todo) => {
+            const todoItem = this.#makeElement("div", "todo-item");
+            // TODO: Make each todo clickable that will open to the Todo View
+
+            const completedCheckbox = this.#makeElement("input", "todo-complete");
+            completedCheckbox.setAttribute("type", "checkbox");
+            completedCheckbox.value = todo.getComplete();
+            completedCheckbox.addEventListener("click", () => {
+                todoItem.setAttribute("class", "completed-todo-item");
+                todo.changeComplete();
+                // TODO: Put this todo item at the end of the list and rebuild Project View
+            });
+
+            const title = this.#makeElement("div", "todo-title", todo.getTitle());
+            const description = this.#makeElement("div", "todo-desc", todo.getDesc());
+            const dueDate = this.#makeElement("div", "todo-due", (todo.getDueDate() !== null) ? todo.getDueDate() : "");
+
+            const deleteBtn = this.#makeElement("button", "delete-btn", "X");
+            deleteBtn.addEventListener("click", () => {
+                // TODO: Remove todo from project.todos
+                todoItem.remove();
+            });
+
+            todoItem.appendChild(completedCheckbox);
+            todoItem.appendChild(title);
+            todoItem.appendChild(description);
+            todoItem.appendChild(dueDate);
+            todoItem.appendChild(deleteBtn);
+
+            todosContainer.appendChild(todoItem);
+        });
+
+        return todosContainer;
     }
 }
