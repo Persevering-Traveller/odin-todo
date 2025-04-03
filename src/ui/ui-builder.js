@@ -9,7 +9,7 @@ export class UIBuilder {
         }
     }
 
-    static build() {
+    static buildAllProjectsView() {
         const contentArea = document.querySelector("#content");
         this.#clearElementChildren(contentArea);
 
@@ -51,6 +51,9 @@ export class UIBuilder {
 
     static #buildProjectCard(project) {
         const card = this.#makeElement("div", "project-card");
+        card.addEventListener("click", () => {
+            // TODO Make buildProjectView()
+        });
         const projectName = this.#makeElement("div", "project-card-title", project.getName());
 
         const todoList = this.#makeElement("ul", "project-card-todo-list");
