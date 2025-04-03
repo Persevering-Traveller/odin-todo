@@ -23,6 +23,10 @@ export class Todo {
     }
 
     getDueDate() {
+        return this.#dueDate;
+    }
+
+    prettyPrintDate() {
         // MM/DD/YY
         const dueDate = `${this.#dueDate.getMonth()}/` +
                         `${this.#dueDate.getDate()}/` +
