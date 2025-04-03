@@ -52,7 +52,7 @@ export class UIBuilder {
     static #buildProjectCard(project) {
         const card = this.#makeElement("div", "project-card");
         card.addEventListener("click", () => {
-            // TODO Make buildProjectView()
+            this.#buildProjectView(project);
         });
         const projectName = this.#makeElement("div", "project-card-title", project.getName());
 
@@ -104,4 +104,26 @@ export class UIBuilder {
         modal.appendChild(closeBtn);
         return modal;
     } 
+
+    static #buildProjectView(project) {
+        const contentArea = document.querySelector("#content");
+        this.#clearElementChildren(contentArea);
+
+        const title = this.#makeElement("div", "project-title", project.getName());
+        const todosContainer = this.#buildTodosContainer(project.getTodoList());
+
+        const backBtn = this.#makeElement("button", "back-btn", "<-");
+        backBtn.addEventListener("click", () => {
+            this.buildAllProjectsView();
+        });
+
+        contentArea.appendChild(backBtn);
+        contentArea.appendChild(title);
+        //contentArea.appendChild(todosContainer);
+    }
+
+    static #buildTodosContainer(allTodos) {
+        // TODO: Build container that will list out each todo's properties
+        // TODO: Make each todo clickable that will open to the Todo View
+    }
 }
