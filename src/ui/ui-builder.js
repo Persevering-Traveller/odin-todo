@@ -147,11 +147,12 @@ export class UIBuilder {
 
             const completedCheckbox = this.#makeElement("input", "todo-complete");
             completedCheckbox.setAttribute("type", "checkbox");
-            completedCheckbox.value = todo.getComplete();
+            completedCheckbox.checked = todo.getComplete();
             completedCheckbox.addEventListener("click", () => {
                 todoItem.setAttribute("class", "completed-todo-item");
                 todo.changeComplete();
-                // TODO: Put this todo item at the end of the list and rebuild Project View
+                completedCheckbox.checked = todo.getComplete();
+                this.#buildProjectView(project);
             });
 
             const title = this.#makeElement("div", "todo-title", todo.getTitle());
