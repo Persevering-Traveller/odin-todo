@@ -125,29 +125,14 @@ export class UIBuilder {
     static #buildTodosContainer(project) {
         const todosContainer = this.#makeElement("div", "todos");
         let allTodos = this.#buildTodoItems(project);
-
-        /* Append each todo into the container in the following priority order:
-            Due in 3 Days:
-                1) High Priority Todo
-                2) Normal Priority Todo
-                3) Low Priority Todo
-            4) High Priority Todo
-            5) Normal Priority Todo
-            6) Low Priority Todo
-        */
-        const today = new Date();
-        project.getTodoList().forEach((todo, i) => {
-            if(todo.getDueDate() === null) // Some Todos don't have due dates
-                return; 
-
-            if(todo.getDueDate().getFullYear() === today.getFullYear() &&
-               todo.getDueDate().getMonth() === today.getMonth() &&
-               todo.getDueDate().getDate() - today.getDate() <= 3) {
-                   todosContainer.appendChild(allTodos[i]); // allTodos is in the same order as project.todos
-                   allTodos = allTodos.filter((_, index) => index !== i );
-            }
-        });
-        allTodos.forEach(todo => todosContainer.append(todo));
+        allTodos = this.#sortItems(allTodos, project.getTodoList());
+        // WARNING -- NOTE -- TODO: Whenever a .forEach() or for..of is used, it puts it in the wrong order
+        // but when doing it like this, it's how I'd like it. WHY???
+        todosContainer.appendChild(allTodos[0]);
+        todosContainer.appendChild(allTodos[1]);
+        todosContainer.appendChild(allTodos[2]);
+        todosContainer.appendChild(allTodos[3]);
+        todosContainer.appendChild(allTodos[4]);
 
         return todosContainer;
     }
@@ -155,7 +140,13 @@ export class UIBuilder {
     static #buildTodoItems(project) {
         let todos = [];
         project.getTodoList().forEach((todo, i) => {
-            const todoItem = this.#makeElement("div", "todo-item");
+            let priorityLevel = "";
+            switch(todo.getPriority()) {
+                case 0: priorityLevel = "low"; break;
+                case 1: priorityLevel = "normal"; break;
+                case 2: priorityLevel = "high"; break;
+            }
+            const todoItem = this.#makeElement("div", "todo-item " + priorityLevel);
             // TODO: Make each todo clickable that will open to the Todo View
 
             const completedCheckbox = this.#makeElement("input", "todo-complete");
@@ -187,5 +178,57 @@ export class UIBuilder {
         });
 
         return todos;
+    }
+
+    static #sortItems(todoElements, todos) {
+        /* Place each todo by # of days left till due vs priority value, ex:
+            Due in 1 day: Low Priority,
+            Due in 2 days: High Priority, Low Priority,
+            Due in 3 days: Normal Priority, Low Priority,
+            Due in more than 3 days: (All High Priorities), (All Normal Priorities), (All Low Priorities)
+        */
+        let sortedByDueDays = [
+            [], // Due today or past due
+            [], // 1 day till due
+            [], // 2 days till due
+            [], // 3 days till due
+            []  // Not due soon or no due date
+        ];
+        
+        const today = new Date();
+        todos.forEach((todo, i) => {
+            if(todo.getDueDate() === null) { // Some Todos don't have due dates
+                sortedByDueDays[4].push({element: todoElements[i], priority: todo.getPriority()});
+                return;
+            }
+            
+            // Todo is due soon
+            let daysTillDue = todo.getDueDate().getDate() - today.getDate()
+            if(todo.getDueDate().getFullYear() === today.getFullYear() &&
+                todo.getDueDate().getMonth() === today.getMonth() &&
+                daysTillDue <= 3) {
+                    if(daysTillDue < 0) // Todo is past due
+                        sortedByDueDays[0].push({element: todoElements[i], priority: todo.getPriority()});
+                    else
+                        sortedByDueDays[daysTillDue].push({element: todoElements[i], priority: todo.getPriority()});
+            }
+            
+            // Todo isn't due soon
+            sortedByDueDays[4].push({element: todoElements[i], priority: todo.getPriority()});
+
+        });
+
+        // Sort each day by priority value
+        sortedByDueDays.forEach(day => {
+            day.sort((a, b) => a.priority - b.priority)
+        });
+
+        // Grab only the elements and flatten the array
+        let sortedTodos = []
+        sortedByDueDays.forEach(day => {
+            sortedTodos.push(day.map(todo => todo.element).flat());
+        });
+
+        return sortedTodos.flat();
     }
 }
