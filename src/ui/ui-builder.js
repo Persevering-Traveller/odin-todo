@@ -226,9 +226,9 @@ export class UIBuilder {
         // Grab only the elements and flatten the array
         let sortedTodos = []
         sortedByDueDays.forEach(day => {
-            sortedTodos.push(day.map(todo => todo.element).flat());
+            sortedTodos.push(day.map(todo => todo.element));
         });
 
-        return sortedTodos.flat();
+        return sortedTodos.flat(2);
     }
 }
