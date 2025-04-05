@@ -178,21 +178,29 @@ export class UIBuilder {
 
     static #sortItems(todoElements, todos) {
         /* Place each todo by # of days left till due vs priority value, ex:
+            Due today or past due!: (All High Priorities), (All Normal Priorities), (All Low Priorities),
             Due in 1 day: Low Priority,
             Due in 2 days: High Priority, Low Priority,
             Due in 3 days: Normal Priority, Low Priority,
-            Due in more than 3 days: (All High Priorities), (All Normal Priorities), (All Low Priorities)
+            Due in more than 3 days: (All High Priorities), (All Normal Priorities), (All Low Priorities),
+            Completed: (All High Priorities), (All Normal Priorities), (All Low Priorities)
         */
         let sortedByDueDays = [
             [], // Due today or past due
             [], // 1 day till due
             [], // 2 days till due
             [], // 3 days till due
-            []  // Not due soon or no due date
+            [], // Not due soon or no due date
+            []  // Completed
         ];
         
         const today = new Date();
         todos.forEach((todo, i) => {
+            if(todo.getComplete()) {
+                sortedByDueDays[5].push({element: todoElements[i], priority: todo.getPriority()});
+                return;
+            }
+
             if(todo.getDueDate() === null) { // Some Todos don't have due dates
                 sortedByDueDays[4].push({element: todoElements[i], priority: todo.getPriority()});
                 return;
