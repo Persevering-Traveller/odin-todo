@@ -126,13 +126,9 @@ export class UIBuilder {
         const todosContainer = this.#makeElement("div", "todos");
         let allTodos = this.#buildTodoItems(project);
         allTodos = this.#sortItems(allTodos, project.getTodoList());
-        // WARNING -- NOTE -- TODO: Whenever a .forEach() or for..of is used, it puts it in the wrong order
-        // but when doing it like this, it's how I'd like it. WHY???
-        todosContainer.appendChild(allTodos[0]);
-        todosContainer.appendChild(allTodos[1]);
-        todosContainer.appendChild(allTodos[2]);
-        todosContainer.appendChild(allTodos[3]);
-        todosContainer.appendChild(allTodos[4]);
+        allTodos.forEach(todo => {
+            todosContainer.appendChild(todo);
+        });
 
         return todosContainer;
     }
@@ -211,16 +207,17 @@ export class UIBuilder {
                         sortedByDueDays[0].push({element: todoElements[i], priority: todo.getPriority()});
                     else
                         sortedByDueDays[daysTillDue].push({element: todoElements[i], priority: todo.getPriority()});
+                    
+                    return;
             }
             
             // Todo isn't due soon
             sortedByDueDays[4].push({element: todoElements[i], priority: todo.getPriority()});
-
         });
 
         // Sort each day by priority value
         sortedByDueDays.forEach(day => {
-            day.sort((a, b) => a.priority - b.priority)
+            day.sort((a, b) => b.priority - a.priority);
         });
 
         // Grab only the elements and flatten the array
