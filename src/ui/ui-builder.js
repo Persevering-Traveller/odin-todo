@@ -277,11 +277,14 @@ export class UIBuilder {
         const priorityLevels = ["Low", "Normal", "High"];
         priorityLevels.forEach((priority, i) => {
             const priorityOption = this.#makeElement("option", "", priority);
-            priorityOption.value = priority;
+            priorityOption.value = i;
             if(todo.getPriority() === i) // Low is 0, Normal is 1, High is 2
                 priorityOption.selected = true;
             prioritySelector.appendChild(priorityOption);
         });
+        // Even though priorityOption.value was set to an integer, it's read as a string
+        // So reconvert it to integer
+        prioritySelector.addEventListener("change", () => todo.changePriority(Number(prioritySelector.value)));
 
         todoInfo.appendChild(completedCheckbox);
         todoInfo.appendChild(title);
