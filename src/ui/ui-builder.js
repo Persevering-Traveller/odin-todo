@@ -143,7 +143,9 @@ export class UIBuilder {
                 case 2: priorityLevel = "high"; break;
             }
             const todoItem = this.#makeElement("div", "todo-item " + priorityLevel);
-            // TODO: Make each todo clickable that will open to the Todo View
+            todoItem.addEventListener("click", () => {
+                this.#buildTodoView(todo, project);
+            });
 
             const completedCheckbox = this.#makeElement("input", "todo-complete");
             completedCheckbox.setAttribute("type", "checkbox");
@@ -236,5 +238,54 @@ export class UIBuilder {
         });
 
         return sortedTodos.flat(2);
+    }
+
+    static #buildTodoView(todo, project) {
+        const contentArea = document.querySelector("#content");
+        this.#clearElementChildren(contentArea);
+
+        const todoInfoContainer = this.#buildTodoInfoContainer(todo);
+        
+        const backBtn = this.#makeElement("button", "back-btn", "<-");
+        backBtn.addEventListener("click", () => {
+            this.#buildProjectView(project);
+        })
+
+        contentArea.appendChild(backBtn);
+        contentArea.appendChild(todoInfoContainer);
+    }
+
+    static #buildTodoInfoContainer(todo) {
+        // TODO: Each part of the todo has an edit button associated with it
+        const todoInfo = this.#makeElement("div", "todo-info-container");
+
+        const completedCheckbox = this.#makeElement("input", "todo-info-checkbox");
+        completedCheckbox.setAttribute("type", "checkbox");
+        completedCheckbox.completed = todo.getComplete();
+        completedCheckbox.addEventListener("click", () => {
+            todo.changeComplete();
+            completedCheckbox.completed = todo.getComplete();
+        });
+        const title = this.#makeElement("div", "todo-info-title", todo.getTitle());
+        const desc = this.#makeElement("div", "todo-info-desc", todo.getDesc());
+        const dueDate = this.#makeElement("div", "todo-info-due-date", todo.prettyPrintDate());
+        
+        const prioritySelector = this.#makeElement("select", "todo-info-priority");
+        const priorityLevels = ["Low", "Normal", "High"];
+        priorityLevels.forEach((priority, i) => {
+            const priorityOption = this.#makeElement("option", "", priority);
+            priorityOption.value = priority;
+            if(todo.getPriority() === i) // Low is 0, Normal is 1, High is 2
+                priorityOption.selected = true;
+            prioritySelector.appendChild(priorityOption);
+        });
+
+        todoInfo.appendChild(completedCheckbox);
+        todoInfo.appendChild(title);
+        todoInfo.appendChild(desc);
+        todoInfo.appendChild(dueDate);
+        todoInfo.appendChild(prioritySelector);
+
+        return todoInfo;
     }
 }
