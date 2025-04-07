@@ -143,10 +143,7 @@ export class UIBuilder {
                 case 2: priorityLevel = "high"; break;
             }
             const todoItem = this.#makeElement("div", "todo-item " + priorityLevel);
-            todoItem.addEventListener("click", () => {
-                this.#buildTodoView(todo, project);
-            });
-
+            
             const completedCheckbox = this.#makeElement("input", "todo-complete");
             completedCheckbox.setAttribute("type", "checkbox");
             completedCheckbox.checked = todo.getComplete();
@@ -157,9 +154,17 @@ export class UIBuilder {
                 this.#buildProjectView(project);
             });
 
+            // Only want the title, description and due date area clickable
+            const todoInfoArea = this.#makeElement("div", "todo-info-area");
             const title = this.#makeElement("div", "todo-title", todo.getTitle());
             const description = this.#makeElement("div", "todo-desc", todo.getDesc());
             const dueDate = this.#makeElement("div", "todo-due", (todo.getDueDate() !== null) ? todo.prettyPrintDate() : "");
+            todoInfoArea.appendChild(title);
+            todoInfoArea.appendChild(description);
+            todoInfoArea.appendChild(dueDate);
+            todoInfoArea.addEventListener("click", () => {
+                this.#buildTodoView(todo, project);
+            });
 
             const deleteBtn = this.#makeElement("button", "delete-btn", "X");
             deleteBtn.addEventListener("click", () => {
@@ -168,9 +173,7 @@ export class UIBuilder {
             });
 
             todoItem.appendChild(completedCheckbox);
-            todoItem.appendChild(title);
-            todoItem.appendChild(description);
-            todoItem.appendChild(dueDate);
+            todoItem.appendChild(todoInfoArea);
             todoItem.appendChild(deleteBtn);
 
             todos.push(todoItem);
