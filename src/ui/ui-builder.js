@@ -360,7 +360,12 @@ export class UIBuilder {
                     todo.changeDesc(input.value);
                     break;
                 case "due-date":
-                    todo.changeDueDate(new Date(input.value));
+                    // I guess Javascript's Date object is a little weird when parsing
+                    // strings to set the date. Depending on the user's timezone
+                    // '2025-9-23' the day may or may not evaluate to the 22nd.
+                    // But by replacing the dashes with a forward slash, it's guaranteed
+                    // to be the date we expect.
+                    todo.changeDueDate(new Date(input.value.replace(/-/g, '\/')));
                     break;
             }
             this.#buildTodoView(todo, project);
