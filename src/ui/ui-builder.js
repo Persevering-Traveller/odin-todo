@@ -28,11 +28,14 @@ export class UIBuilder {
         return element;
     }
 
-    static #makeEditButton(modalType) {
+    static #makeEditButton(modalType, todo, project) {
         const editBtn = this.#makeElement("button", "todo-info-edit-btn", "Edit");
         editBtn.addEventListener("click", () => {
-            //this.#buildEditTodoModal(modalType);
+            const editModal = this.#buildTodoEditModal(modalType, todo, project);
+            editModal.showModal();
         });
+
+        return editBtn;
     }
 
     static #clearElementChildren(element) {
@@ -255,7 +258,7 @@ export class UIBuilder {
         const contentArea = document.querySelector("#content");
         this.#clearElementChildren(contentArea);
 
-        const todoInfoContainer = this.#buildTodoInfoContainer(todo);
+        const todoInfoContainer = this.#buildTodoInfoContainer(todo, project);
         
         const backBtn = this.#makeElement("button", "back-btn", "<-");
         backBtn.addEventListener("click", () => {
@@ -266,7 +269,7 @@ export class UIBuilder {
         contentArea.appendChild(todoInfoContainer);
     }
 
-    static #buildTodoInfoContainer(todo) {
+    static #buildTodoInfoContainer(todo, project) {
         // TODO: title, desc, and dueDate needs an edit button
         const todoInfo = this.#makeElement("div", "todo-info-container");
 
@@ -278,8 +281,11 @@ export class UIBuilder {
             completedCheckbox.completed = todo.getComplete();
         });
         const title = this.#makeElement("div", "todo-info-title", todo.getTitle());
+        const titleEditBtn = this.#makeEditButton("title", todo, project);
         const desc = this.#makeElement("div", "todo-info-desc", todo.getDesc());
+        const descEditBtn = this.#makeEditButton("description", todo, project);
         const dueDate = this.#makeElement("div", "todo-info-due-date", todo.prettyPrintDate());
+        const dueDateEditBtn = this.#makeEditButton("due-date", todo, project);
         
         const prioritySelector = this.#makeElement("select", "todo-info-priority");
         const priorityLevels = ["Low", "Normal", "High"];
@@ -295,11 +301,68 @@ export class UIBuilder {
         prioritySelector.addEventListener("change", () => todo.changePriority(Number(prioritySelector.value)));
 
         todoInfo.appendChild(completedCheckbox);
+        todoInfo.appendChild(titleEditBtn);
         todoInfo.appendChild(title);
+        todoInfo.appendChild(descEditBtn);
         todoInfo.appendChild(desc);
+        todoInfo.appendChild(dueDateEditBtn);
         todoInfo.appendChild(dueDate);
         todoInfo.appendChild(prioritySelector);
 
         return todoInfo;
+    }
+
+    static #buildTodoEditModal(modalType, todo, project) {
+        const modal = document.querySelector("#modal");
+        this.#clearElementChildren(modal);
+
+        const form = this.#makeElement("form", "form");
+        form.setAttribute("action", "");
+        form.setAttribute("method", "post");
+
+        let input = this.#makeElement("input", "todo-input");
+        switch(modalType) {
+            case "title":
+                input.setAttribute("type", "text");
+                break;
+            case "description":
+                input = this.#makeElement("textarea", "todo-input-textarea");
+                input.setAttribute("rows", 10);
+                input.setAttribute("cols", 50);
+                break;
+            case "due-date":
+                input.setAttribute("type", "date");
+                break;
+        }
+        form.appendChild(input);
+
+        const submitBtn = this.#makeElement("button", "submit-btn", "Submit");
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            switch(modalType) {
+                case "title":
+                    todo.changeTitle(input.value);
+                    break;
+                case "description":
+                    todo.changeDesc(input.value);
+                    break;
+                case "due-date":
+                    todo.changeDueDate(new Date(input.value));
+                    break;
+            }
+            this.#buildTodoView(todo, project);
+            modal.close();
+        });
+
+        const closeBtn = this.#makeElement("button", "close-btn", "Close");
+        closeBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            modal.close();
+        });
+
+        modal.appendChild(form);
+        modal.appendChild(submitBtn);
+        modal.appendChild(closeBtn);
+        return modal;
     }
 }
