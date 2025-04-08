@@ -100,7 +100,7 @@ export class UIBuilder {
             e.preventDefault();
             this.#projects.push(new Project(projectNameEntry.value));
             modal.close();
-            this.build();
+            this.buildAllProjectsView();
         });
 
         const closeBtn = this.#makeElement("button", "close-btn", "Close");
@@ -263,6 +263,8 @@ export class UIBuilder {
         sortedByDueDays.forEach(day => {
             sortedTodos.push(day.map(todo => todo.element));
         });
+
+        // TODO: Consider sorting actual todos in same order
 
         return sortedTodos.flat(2);
     }
