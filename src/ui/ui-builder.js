@@ -192,7 +192,8 @@ export class UIBuilder {
             Completed: (All High Priorities), (All Normal Priorities), (All Low Priorities)
         */
         let sortedByDueDays = [
-            [], // Due today or past due
+            [], // Past due
+            [], // Due today
             [], // 1 day till due
             [], // 2 days till due
             [], // 3 days till due
@@ -203,12 +204,12 @@ export class UIBuilder {
         const today = new Date();
         todos.forEach((todo, i) => {
             if(todo.getComplete()) {
-                sortedByDueDays[5].push({element: todoElements[i], priority: todo.getPriority()});
+                sortedByDueDays[6].push({element: todoElements[i], priority: todo.getPriority()});
                 return;
             }
 
             if(todo.getDueDate() === null) { // Some Todos don't have due dates
-                sortedByDueDays[4].push({element: todoElements[i], priority: todo.getPriority()});
+                sortedByDueDays[5].push({element: todoElements[i], priority: todo.getPriority()});
                 return;
             }
             
@@ -220,13 +221,13 @@ export class UIBuilder {
                     if(daysTillDue < 0) // Todo is past due
                         sortedByDueDays[0].push({element: todoElements[i], priority: todo.getPriority()});
                     else
-                        sortedByDueDays[daysTillDue].push({element: todoElements[i], priority: todo.getPriority()});
+                        sortedByDueDays[daysTillDue + 1].push({element: todoElements[i], priority: todo.getPriority()});
                     
                     return;
             }
             
             // Todo isn't due soon
-            sortedByDueDays[4].push({element: todoElements[i], priority: todo.getPriority()});
+            sortedByDueDays[5].push({element: todoElements[i], priority: todo.getPriority()});
         });
 
         // Sort each day by priority value
@@ -259,7 +260,7 @@ export class UIBuilder {
     }
 
     static #buildTodoInfoContainer(todo) {
-        // TODO: Each part of the todo has an edit button associated with it
+        // TODO: title, desc, and dueDate needs an edit button
         const todoInfo = this.#makeElement("div", "todo-info-container");
 
         const completedCheckbox = this.#makeElement("input", "todo-info-checkbox");
