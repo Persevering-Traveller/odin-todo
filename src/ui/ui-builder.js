@@ -61,7 +61,17 @@ export class UIBuilder {
 
     static #buildProjectCard(project) {
         const card = this.#makeElement("div", "project-card");
-        card.addEventListener("click", () => {
+        const deleteBtn = this.#makeElement("button", "project-card-delete-btn", "X");
+        deleteBtn.addEventListener("click", () => {
+            // TODO: Consider opening a modal that asks "Are you sure?"
+            this.#projects = this.#projects.filter(proj => proj.getName() !== project.getName());
+            card.remove();
+            this.buildAllProjectsView();
+        });
+        card.appendChild(deleteBtn);
+
+        const cardContent = this.#makeElement("div", "project-card-content");
+        cardContent.addEventListener("click", () => {
             this.#buildProjectView(project);
         });
         const projectName = this.#makeElement("div", "project-card-title", project.getName());
@@ -78,8 +88,10 @@ export class UIBuilder {
             todoList.appendChild(elipsis);
         }
 
-        card.appendChild(projectName);
-        card.appendChild(todoList);
+        cardContent.appendChild(projectName);
+        cardContent.appendChild(todoList);
+
+        card.appendChild(cardContent);
         return card;
     }
 
