@@ -214,12 +214,12 @@ export class UIBuilder {
         const today = new Date();
         todos.forEach((todo, i) => {
             if(todo.getComplete()) {
-                sortedByDueDays[6].push({element: todoElements[i], priority: todo.getPriority()});
+                sortedByDueDays[6].push({element: todoElements[i], priority: todo.getPriority(), due: todo.getDueDate()});
                 return;
             }
 
             if(todo.getDueDate() === null) { // Some Todos don't have due dates
-                sortedByDueDays[5].push({element: todoElements[i], priority: todo.getPriority()});
+                sortedByDueDays[5].push({element: todoElements[i], priority: todo.getPriority(), due: todo.getDueDate()});
                 return;
             }
             
@@ -229,20 +229,33 @@ export class UIBuilder {
                 todo.getDueDate().getMonth() === today.getMonth() &&
                 daysTillDue <= 3) {
                     if(daysTillDue < 0) // Todo is past due
-                        sortedByDueDays[0].push({element: todoElements[i], priority: todo.getPriority()});
+                        sortedByDueDays[0].push({element: todoElements[i], priority: todo.getPriority(), due: todo.getDueDate()});
                     else
-                        sortedByDueDays[daysTillDue + 1].push({element: todoElements[i], priority: todo.getPriority()});
+                        sortedByDueDays[daysTillDue + 1].push({element: todoElements[i], priority: todo.getPriority(), due: todo.getDueDate()});
                     
                     return;
             }
             
             // Todo isn't due soon
-            sortedByDueDays[5].push({element: todoElements[i], priority: todo.getPriority()});
+            sortedByDueDays[5].push({element: todoElements[i], priority: todo.getPriority(), due: todo.getDueDate()});
         });
 
         // Sort each day by priority value
         sortedByDueDays.forEach(day => {
             day.sort((a, b) => b.priority - a.priority);
+        });
+
+        // Sort now by which is due soonest
+        sortedByDueDays.forEach(day => {
+            day.sort((a, b) => {
+                if(a.due === null || b.due === null) return 0; // If the todo has no due date
+                if(a.due.getFullYear() !== b.due.getFullYear())
+                    return a.due.getFullYear() - b.due.getFullYear();
+                if(a.due.getMonth() !== b.due.getMonth())
+                    return a.due.getMonth() - b.due.getMonth();
+                // If in the same year and month, sort by day
+                return a.due.getDate() - b.due.getDate();
+            });
         });
 
         // Grab only the elements and flatten the array
