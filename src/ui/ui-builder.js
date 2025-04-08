@@ -28,6 +28,13 @@ export class UIBuilder {
         return element;
     }
 
+    static #makeEditButton(modalType) {
+        const editBtn = this.#makeElement("button", "todo-info-edit-btn", "Edit");
+        editBtn.addEventListener("click", () => {
+            //this.#buildEditTodoModal(modalType);
+        });
+    }
+
     static #clearElementChildren(element) {
         while(element.hasChildNodes()) {
             element.removeChild(element.firstElementChild);
