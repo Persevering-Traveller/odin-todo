@@ -9,7 +9,7 @@ export class UIBuilder {
             project.todos.forEach(todo => builtProject.addTodo(
                 todo.title,
                 todo.description,
-                new Date(todo.dueDate),
+                (todo.dueDate === null) ? null : new Date(todo.dueDate),
                 todo.priority,
                 todo.complete
             ));
