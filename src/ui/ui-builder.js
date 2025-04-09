@@ -63,10 +63,9 @@ export class UIBuilder {
         const card = this.#makeElement("div", "project-card");
         const deleteBtn = this.#makeElement("button", "project-card-delete-btn", "X");
         deleteBtn.addEventListener("click", () => {
-            // TODO: Consider opening a modal that asks "Are you sure?"
-            this.#projects = this.#projects.filter(proj => proj.getName() !== project.getName());
-            card.remove();
-            this.buildAllProjectsView();
+            // Open a modal that asks "Are you sure?"
+            const modal = this.#buildDeletionConfirmationModal(card, project);
+            modal.show();
         });
         card.appendChild(deleteBtn);
 
@@ -126,6 +125,31 @@ export class UIBuilder {
         modal.appendChild(closeBtn);
         return modal;
     } 
+
+    static #buildDeletionConfirmationModal(card, project) {
+        const modal = document.querySelector("#modal");
+        this.#clearElementChildren(modal);
+
+        const prompt = this.#makeElement("div", "deletion-conf-prompt", "Are you sure you want to delete this project? (You'll lose all of your Todos)");
+
+        const confirmBtn = this.#makeElement("button", "submit-btn", "Confirm");
+        confirmBtn.addEventListener("click", () => {
+            this.#projects = this.#projects.filter(proj => proj.getName() !== project.getName());
+            card.remove();
+            modal.close();
+            this.buildAllProjectsView();
+        });
+
+        const cancelBtn = this.#makeElement("button", "close-btn", "Cancel");
+        cancelBtn.addEventListener("click", () => {
+            modal.close();
+        });
+
+        modal.appendChild(prompt);
+        modal.appendChild(confirmBtn);
+        modal.appendChild(cancelBtn);
+        return modal;
+    }
 
     static #buildProjectView(project) {
         const contentArea = document.querySelector("#content");
