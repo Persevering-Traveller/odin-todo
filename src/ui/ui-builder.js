@@ -138,8 +138,14 @@ export class UIBuilder {
         backBtn.addEventListener("click", () => {
             this.buildAllProjectsView();
         });
+        const addBtn = this.#makeElement("button", "add-todo-btn", "+");
+        addBtn.addEventListener("click", () => {
+            //const modal = this.buildNewTodoModal(project);
+            //modal.showModal();
+        });
 
         contentArea.appendChild(backBtn);
+        contentArea.appendChild(addBtn);
         contentArea.appendChild(title);
         contentArea.appendChild(todosContainer);
     }
