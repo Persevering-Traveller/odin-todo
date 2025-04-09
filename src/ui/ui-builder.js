@@ -5,7 +5,15 @@ export class UIBuilder {
 
     static loadProjects(projects) {
         for(const project of projects) {
-            this.#projects.push(project);
+            let builtProject = new Project(project.name, project.color);
+            project.todos.forEach(todo => builtProject.addTodo(
+                todo.title,
+                todo.description,
+                new Date(todo.dueDate),
+                todo.priority,
+                todo.complete
+            ));
+            this.#projects.push(builtProject);
         }
     }
 
