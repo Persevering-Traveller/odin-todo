@@ -48,6 +48,14 @@ export class Project {
         return this.#color;
     }
 
+    stringified() {
+        let stringifiedProject = {
+            name: this.#name, 
+            todos: this.#todos.map(todo => todo.stringified()), 
+            color: this.#color};
+        return JSON.stringify(stringifiedProject);
+    }
+
     // Setters
     changeName(newName) {
         this.#name = newName;

@@ -44,6 +44,17 @@ export class Todo {
         return this.#complete;
     }
 
+    stringified() {
+        let stringifiedTodo = {
+            title: this.#title,
+            description: this.#description,
+            dueDate: this.#dueDate,
+            priority: this.#priority,
+            complete: this.#complete
+        }
+        return JSON.stringify(stringifiedTodo);
+    }
+
     // Setters
     changeTitle(newTitle) {
         this.#title = newTitle;
