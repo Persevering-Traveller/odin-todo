@@ -140,8 +140,8 @@ export class UIBuilder {
         });
         const addBtn = this.#makeElement("button", "add-todo-btn", "+");
         addBtn.addEventListener("click", () => {
-            //const modal = this.buildNewTodoModal(project);
-            //modal.showModal();
+            const modal = this.#buildNewTodoModal(project);
+            modal.showModal();
         });
 
         contentArea.appendChild(backBtn);
@@ -343,6 +343,64 @@ export class UIBuilder {
         todoInfo.appendChild(prioritySelector);
 
         return todoInfo;
+    }
+
+    static #buildNewTodoModal(project) {
+        const modal = document.querySelector("#modal");
+        this.#clearElementChildren(modal);
+
+        const form = this.#makeElement("form", "form");
+        form.setAttribute("action", "");
+        form.setAttribute("method", "post");
+
+        const title = this.#makeElement("input", "new-todo-title");
+        title.setAttribute("type", "text");
+
+        const desc = this.#makeElement("textarea", "new-todo-desc");
+        desc.setAttribute("rows", 10);
+        desc.setAttribute("cols", 50);
+
+        const dueDate = this.#makeElement("input", "new-todo-date");
+        dueDate.setAttribute("type", "date");
+
+        const prioritySelector = this.#makeElement("select", "new-todo-priority");
+        const priorityLevels = ["Low", "Normal", "High"];
+        priorityLevels.forEach((priority, i) => {
+            const priorityOption = this.#makeElement("option", "", priority);
+            priorityOption.value = i;
+            if(i == 1) // Normal priority is default
+                priorityOption.selected = true;
+            prioritySelector.appendChild(priorityOption);
+        });
+
+        form.appendChild(title);
+        form.appendChild(desc);
+        form.appendChild(dueDate);
+        form.appendChild(prioritySelector);
+
+        const submitBtn = this.#makeElement("button", "submit-btn", "Submit");
+        submitBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            project.addTodo(title.value,
+                            desc.value,
+                            new Date(dueDate.value.replace(/-/g, '\/')),
+                            Number(prioritySelector.value)
+            );
+            modal.close();
+            this.#buildProjectView(project);
+        });
+
+        const closeBtn = this.#makeElement("button", "close-btn", "Close");
+        closeBtn.addEventListener("click", (e) => {
+            e.preventDefault();
+            modal.close();
+        });
+
+        modal.appendChild(form);
+        modal.appendChild(submitBtn);
+        modal.appendChild(closeBtn);
+
+        return modal;
     }
 
     static #buildTodoEditModal(modalType, todo, project) {
