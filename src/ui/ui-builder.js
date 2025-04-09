@@ -3,6 +3,10 @@ import { Project } from "../project";
 export class UIBuilder {
     static #projects = [];
 
+    static createDefault() {
+        this.#projects.push(new Project());
+    }
+
     static loadProjects(projects) {
         for(const project of projects) {
             let builtProject = new Project(project.name, project.color);
