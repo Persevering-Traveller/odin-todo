@@ -218,6 +218,7 @@ export class UIBuilder {
             completedCheckbox.addEventListener("click", () => {
                 todoItem.setAttribute("class", "completed-todo-item");
                 todo.changeComplete();
+                DataHandler.saveData(this.#projects);
                 completedCheckbox.checked = todo.getComplete();
                 this.#buildProjectView(project);
             });
@@ -351,6 +352,7 @@ export class UIBuilder {
         completedCheckbox.checked = todo.getComplete();
         completedCheckbox.addEventListener("click", () => {
             todo.changeComplete();
+            DataHandler.saveData(this.#projects);
             completedCheckbox.checked = todo.getComplete();
         });
         const title = this.#makeElement("div", "todo-info-title", todo.getTitle());
