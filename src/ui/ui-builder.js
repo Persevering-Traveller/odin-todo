@@ -371,7 +371,10 @@ export class UIBuilder {
         });
         // Even though priorityOption.value was set to an integer, it's read as a string
         // So reconvert it to integer
-        prioritySelector.addEventListener("change", () => todo.changePriority(Number(prioritySelector.value)));
+        prioritySelector.addEventListener("change", () => {
+            todo.changePriority(Number(prioritySelector.value));
+            DataHandler.saveData(this.#projects);
+        });
 
         todoInfo.appendChild(completedCheckbox);
         todoInfo.appendChild(titleEditBtn);
