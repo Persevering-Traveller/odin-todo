@@ -487,6 +487,7 @@ export class UIBuilder {
                     todo.changeDueDate(new Date(input.value.replace(/-/g, '\/')));
                     break;
             }
+            DataHandler.saveData(this.#projects);
             this.#buildTodoView(todo, project);
             modal.close();
         });
