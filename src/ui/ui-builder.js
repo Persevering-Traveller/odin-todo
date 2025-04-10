@@ -17,7 +17,7 @@ export class UIBuilder {
                 todo.description,
                 (todo.dueDate === null) ? null : new Date(todo.dueDate),
                 todo.priority,
-                todo.complete
+                (todo.complete === "true") ? true : false
             ));
             this.#projects.push(builtProject);
         }
@@ -348,10 +348,10 @@ export class UIBuilder {
 
         const completedCheckbox = this.#makeElement("input", "todo-info-checkbox");
         completedCheckbox.setAttribute("type", "checkbox");
-        completedCheckbox.completed = todo.getComplete();
+        completedCheckbox.checked = todo.getComplete();
         completedCheckbox.addEventListener("click", () => {
             todo.changeComplete();
-            completedCheckbox.completed = todo.getComplete();
+            completedCheckbox.checked = todo.getComplete();
         });
         const title = this.#makeElement("div", "todo-info-title", todo.getTitle());
         const titleEditBtn = this.#makeEditButton("title", todo, project);
