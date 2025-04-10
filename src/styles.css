@@ -30,6 +30,15 @@
     cursor: pointer;
 }
 
+.project-card-delete-btn {
+    align-self: flex-end;
+    border: 1px solid black;
+    background-color: white;
+    border-radius: 8px;
+    width: 24px;
+    height: 24px;
+}
+
 .project-card-title {
     font-weight: bold;
     font-size: 1.2rem;
