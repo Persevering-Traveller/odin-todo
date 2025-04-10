@@ -150,6 +150,7 @@ export class UIBuilder {
         const confirmBtn = this.#makeElement("button", "submit-btn", "Confirm");
         confirmBtn.addEventListener("click", () => {
             this.#projects = this.#projects.filter(proj => proj.getName() !== project.getName());
+            DataHandler.saveData(this.#projects);
             card.remove();
             modal.close();
             this.buildAllProjectsView();
