@@ -210,13 +210,17 @@ export class UIBuilder {
                 case 1: priorityLevel = "normal"; break;
                 case 2: priorityLevel = "high"; break;
             }
-            const todoItem = this.#makeElement("div", "todo-item " + priorityLevel);
+            let completedTodo = "";
+            if(todo.getComplete()) completedTodo = " completed-todo-item";
+            const todoItem = this.#makeElement("div", 
+                                               "todo-item " + 
+                                                priorityLevel +
+                                                completedTodo);
             
             const completedCheckbox = this.#makeElement("input", "todo-complete");
             completedCheckbox.setAttribute("type", "checkbox");
             completedCheckbox.checked = todo.getComplete();
             completedCheckbox.addEventListener("click", () => {
-                todoItem.setAttribute("class", "completed-todo-item");
                 todo.changeComplete();
                 DataHandler.saveData(this.#projects);
                 completedCheckbox.checked = todo.getComplete();
