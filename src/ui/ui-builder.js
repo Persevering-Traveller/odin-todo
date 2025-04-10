@@ -1,3 +1,4 @@
+import { DataHandler } from "../datahandler";
 import { Project } from "../project";
 
 export class UIBuilder {
@@ -5,6 +6,7 @@ export class UIBuilder {
 
     static createDefault() {
         this.#projects.push(new Project());
+        DataHandler.saveData(this.#projects);
     }
 
     static loadProjects(projects) {
