@@ -50,7 +50,7 @@ export class Todo {
             description: this.#description,
             dueDate: this.#dueDate,
             priority: this.#priority,
-            complete: this.#complete
+            complete: String(this.#complete)
         }
         return JSON.stringify(stringifiedTodo);
     }
