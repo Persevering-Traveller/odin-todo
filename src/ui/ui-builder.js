@@ -426,6 +426,7 @@ export class UIBuilder {
                             new Date(dueDate.value.replace(/-/g, '\/')),
                             Number(prioritySelector.value)
             );
+            DataHandler.saveData(this.#projects);
             modal.close();
             this.#buildProjectView(project);
         });
