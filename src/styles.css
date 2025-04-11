@@ -118,6 +118,8 @@
 .todos {
     display: grid;
     gap: 4px;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .todo-item {
