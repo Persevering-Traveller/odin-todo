@@ -48,6 +48,15 @@
 .project-card-title {
     font-weight: bold;
     font-size: 1.2rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 144px;
+}
+
+.project-card-todo-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 144px;
 }
 
 .project-card-todo-title:nth-child(n+4) {
