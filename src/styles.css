@@ -47,3 +47,8 @@
     font-weight: bold;
     font-size: 1.2rem;
 }
+
+.project-card-todo-title:nth-child(n+4) {
+    list-style: none;
+    text-align: center;
+}
