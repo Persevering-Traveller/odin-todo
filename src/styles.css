@@ -126,3 +126,8 @@
     grid-template-columns: 1fr 2fr 1fr;
     grid-column: 2 / 3;
 }
+
+.todo-title, .todo-desc {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
