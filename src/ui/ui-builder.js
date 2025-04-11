@@ -185,8 +185,8 @@ export class UIBuilder {
         });
 
         contentArea.appendChild(backBtn);
-        contentArea.appendChild(addBtn);
         contentArea.appendChild(title);
+        contentArea.appendChild(addBtn);
         contentArea.appendChild(todosContainer);
     }
 
