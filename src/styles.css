@@ -131,3 +131,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.todo-due {
+    text-align: right;
+    padding-right: 16px;
+}
