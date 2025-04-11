@@ -103,3 +103,26 @@
     margin: 8px auto;
     cursor: pointer;
 }
+
+.todos {
+    display: grid;
+    gap: 4px;
+}
+
+.todo-item {
+    display: grid;
+    grid-template-columns: 32px 1fr 32px;
+    grid-column: 1 span;
+    border-bottom: 1px black;
+    cursor: pointer;
+}
+
+.todo-complete {
+    grid-column: 1 / 2;
+}
+
+.todo-info-area {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-column: 2 / 3;
+}
