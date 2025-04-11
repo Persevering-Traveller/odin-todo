@@ -42,7 +42,8 @@
 .project-card-delete-btn:hover,
 .back-btn:hover,
 .add-todo-btn:hover,
-.delete-btn:hover {
+.delete-btn:hover,
+.todo-info-edit-btn:hover {
     background-color: rgba(0, 0, 0, 10%);
 }
 
@@ -172,4 +173,20 @@
 
 .high {
     background-color: red;
+}
+
+.todo-info-checkbox {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: 8px;
+}
+
+.todo-info-edit-btn {
+    padding: 4px 8px;
+    margin: 8px;
+    background-color: rgba(0, 0, 0, 0%);
+    border: 1px solid black;
+    border-radius: 8px;
+    cursor: pointer;
 }
