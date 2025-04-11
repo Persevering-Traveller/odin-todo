@@ -159,3 +159,15 @@
     width: 24px;
     height: 24px;
 }
+
+.low {
+    background-color: #DDD;
+}
+
+.normal { 
+    background-color: white;
+}
+
+.high {
+    background-color: red;
+}
