@@ -86,3 +86,10 @@
 .back-btn:hover {
     background-color: rgba(0, 0, 0, 10%);
 }
+
+.project-title {
+    font-size: 3rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 16px;
+}
