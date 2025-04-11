@@ -75,6 +75,9 @@ export class UIBuilder {
 
     static #buildProjectCard(project) {
         const card = this.#makeElement("div", "project-card");
+        card.addEventListener("click", () => {
+            this.#buildProjectView(project);
+        });
         const deleteBtn = this.#makeElement("button", "project-card-delete-btn", "X");
         deleteBtn.addEventListener("click", () => {
             // Open a modal that asks "Are you sure?"
@@ -84,9 +87,6 @@ export class UIBuilder {
         card.appendChild(deleteBtn);
 
         const cardContent = this.#makeElement("div", "project-card-content");
-        cardContent.addEventListener("click", () => {
-            this.#buildProjectView(project);
-        });
         const projectName = this.#makeElement("div", "project-card-title", project.getName());
 
         const todoList = this.#makeElement("ul", "project-card-todo-list");
