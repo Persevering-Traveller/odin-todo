@@ -39,7 +39,9 @@
     height: 24px;
 }
 
-.project-card-delete-btn:hover {
+.project-card-delete-btn:hover,
+.back-btn:hover,
+.add-todo-btn:hover {
     background-color: rgba(0, 0, 0, 10%);
 }
 
@@ -83,13 +85,21 @@
     cursor: pointer;
 }
 
-.back-btn:hover {
-    background-color: rgba(0, 0, 0, 10%);
-}
-
 .project-title {
     font-size: 3rem;
     font-weight: bold;
     text-align: center;
     padding: 16px;
+}
+
+.add-todo-btn {
+    display: block;
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0%);
+    font-size: 1.5rem;
+    width: 32px;
+    height: 32px;
+    margin: 8px auto;
+    cursor: pointer;
 }
