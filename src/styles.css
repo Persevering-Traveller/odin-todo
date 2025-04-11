@@ -132,6 +132,10 @@
     text-overflow: ellipsis;
 }
 
+.todo-title, .todo-desc {
+    padding-left: 8px;
+}
+
 .todo-due {
     text-align: right;
     padding-right: 16px;
