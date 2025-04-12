@@ -359,12 +359,15 @@ export class UIBuilder {
             DataHandler.saveData(this.#projects);
             completedCheckbox.checked = todo.getComplete();
         });
-        const title = this.#makeElement("div", "todo-info-title", todo.getTitle());
-        const titleEditBtn = this.#makeEditButton("title", todo, project);
-        const desc = this.#makeElement("div", "todo-info-desc", todo.getDesc());
-        const descEditBtn = this.#makeEditButton("description", todo, project);
-        const dueDate = this.#makeElement("div", "todo-info-due-date", todo.prettyPrintDate());
-        const dueDateEditBtn = this.#makeEditButton("due-date", todo, project);
+        const titleSect = this.#makeElement("div", "todo-info-section-title");
+        titleSect.appendChild(this.#makeEditButton("title", todo, project));
+        titleSect.appendChild(this.#makeElement("div", "todo-info-title", todo.getTitle()));
+        const descSect = this.#makeElement("div", "todo-info-section-desc");
+        descSect.appendChild(this.#makeEditButton("description", todo, project));
+        descSect.appendChild(this.#makeElement("div", "todo-info-desc", todo.getDesc()));
+        const dueDateSect = this.#makeElement("div", "todo-info-section-due-date");
+        dueDateSect.appendChild(this.#makeEditButton("due-date", todo, project));
+        dueDateSect.appendChild(this.#makeElement("div", "todo-info-due-date", todo.prettyPrintDate()));
         
         const prioritySelector = this.#makeElement("select", "todo-info-priority");
         const priorityLevels = ["Low", "Normal", "High"];
@@ -383,12 +386,9 @@ export class UIBuilder {
         });
 
         todoInfo.appendChild(completedCheckbox);
-        todoInfo.appendChild(titleEditBtn);
-        todoInfo.appendChild(title);
-        todoInfo.appendChild(descEditBtn);
-        todoInfo.appendChild(desc);
-        todoInfo.appendChild(dueDateEditBtn);
-        todoInfo.appendChild(dueDate);
+        todoInfo.appendChild(titleSect);
+        todoInfo.appendChild(descSect);
+        todoInfo.appendChild(dueDateSect);
         todoInfo.appendChild(prioritySelector);
 
         return todoInfo;
