@@ -43,7 +43,8 @@
 .back-btn:hover,
 .add-todo-btn:hover,
 .delete-btn:hover,
-.todo-info-edit-btn:hover {
+.todo-info-edit-btn:hover,
+.todo-info-priority:hover {
     background-color: rgba(0, 0, 0, 10%);
 }
 
@@ -198,6 +199,11 @@
 
 .todo-info-priority {
     display: block;
+    background-color: rgba(0, 0, 0, 0%);
+    border: 1px solid black;
+    padding: 4px;
+    margin-left: 8px;
+    margin-top: 8px;
 }
 
 .todo-info-title {
