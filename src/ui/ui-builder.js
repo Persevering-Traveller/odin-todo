@@ -432,7 +432,7 @@ export class UIBuilder {
             e.preventDefault();
             project.addTodo(title.value,
                             desc.value,
-                            new Date(dueDate.value.replace(/-/g, '\/')),
+                            (dueDate.value !== "") ? new Date(dueDate.value.replace(/-/g, '\/')) : null,
                             Number(prioritySelector.value)
             );
             DataHandler.saveData(this.#projects);
@@ -493,7 +493,8 @@ export class UIBuilder {
                     // '2025-9-23' the day may or may not evaluate to the 22nd.
                     // But by replacing the dashes with a forward slash, it's guaranteed
                     // to be the date we expect.
-                    todo.changeDueDate(new Date(input.value.replace(/-/g, '\/')));
+                    if(input.value !== "")
+                        todo.changeDueDate(new Date(input.value.replace(/-/g, '\/')));
                     break;
             }
             DataHandler.saveData(this.#projects);
