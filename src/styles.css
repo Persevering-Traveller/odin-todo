@@ -200,3 +200,8 @@
 .todo-info-priority {
     display: block;
 }
+
+.todo-info-title {
+    font-size: 2rem;
+    font-weight: bold;
+}
