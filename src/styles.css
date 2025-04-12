@@ -213,3 +213,7 @@
     width: 500px;
     height: 180px;
 }
+
+.todo-info-due-date {
+    font-size: 1.2rem;
+}
