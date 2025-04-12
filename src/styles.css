@@ -176,6 +176,14 @@
     background-color: red;
 }
 
+.todo-info-container {
+    width: 450px;
+    margin: 0 auto;
+    margin-top: 40px;
+    border: 4px solid black;
+    padding: 32px;
+}
+
 .todo-info-checkbox {
     display: block;
     width: 32px;
