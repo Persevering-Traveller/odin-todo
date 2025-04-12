@@ -192,7 +192,6 @@
 }
 
 .todo-info-title,
-.todo-info-desc,
 .todo-info-due-date {
     display: inline;
 }
@@ -204,4 +203,13 @@
 .todo-info-title {
     font-size: 2rem;
     font-weight: bold;
+}
+
+.todo-info-desc {
+    display: inline-block;
+    border: 2px solid black;
+    overflow-wrap: break-word;
+    overflow-y: scroll;
+    width: 500px;
+    height: 180px;
 }
