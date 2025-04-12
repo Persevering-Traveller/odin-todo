@@ -223,3 +223,10 @@
 .todo-info-due-date {
     font-size: 1.2rem;
 }
+
+.todo-info-section-title,
+.todo-info-section-desc,
+.todo-info-section-due-date {
+    display: flex;
+    align-items: center;
+}
