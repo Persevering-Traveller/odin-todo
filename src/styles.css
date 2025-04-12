@@ -190,3 +190,13 @@
     border-radius: 8px;
     cursor: pointer;
 }
+
+.todo-info-title,
+.todo-info-desc,
+.todo-info-due-date {
+    display: inline;
+}
+
+.todo-info-priority {
+    display: block;
+}
