@@ -3,6 +3,12 @@
     padding: 0;
 }
 
+#modal {
+    margin: auto;
+    padding: 32px;
+    border-radius: 16px;
+}
+
 .all-projects-title {
     font-size: 3rem;
     font-weight: bold;
