@@ -106,6 +106,7 @@ export class UIBuilder {
         cardContent.appendChild(todoList);
 
         card.appendChild(cardContent);
+        card.style.backgroundColor = project.getColor();
         return card;
     }
 
