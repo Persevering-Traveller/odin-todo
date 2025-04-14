@@ -432,12 +432,14 @@ export class UIBuilder {
         const submitBtn = this.#makeElement("button", "submit-btn", "Submit");
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            project.addTodo(title.value,
-                            desc.value,
-                            (dueDate.value !== "") ? new Date(dueDate.value.replace(/-/g, '\/')) : null,
-                            Number(prioritySelector.value)
-            );
-            DataHandler.saveData(this.#projects);
+            if(title.value !== "" && desc.value !== "") {
+                project.addTodo(title.value,
+                                desc.value,
+                                (dueDate.value !== "") ? new Date(dueDate.value.replace(/-/g, '\/')) : null,
+                                Number(prioritySelector.value)
+                );
+                DataHandler.saveData(this.#projects);
+            }
             modal.close();
             this.#buildProjectView(project);
         });
