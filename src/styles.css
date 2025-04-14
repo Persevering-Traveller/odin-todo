@@ -4,18 +4,21 @@
 }
 
 #modal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
     margin: auto;
     padding: 32px;
     border-radius: 16px;
 }
 
-#modal > .submit-btn,
-#modal > .close-btn {
+.modal-btns > .submit-btn,
+.modal-btns > .close-btn {
     border: 1px solid black;
     border-radius: 8px;
     background-color: rgba(0, 0, 0, 0%);
     padding: 6px 12px;
-    margin: 4px;
     cursor: pointer;
 }
 
