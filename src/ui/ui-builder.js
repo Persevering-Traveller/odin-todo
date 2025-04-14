@@ -339,8 +339,6 @@ export class UIBuilder {
             sortedTodos.push(day.map(todo => todo.element));
         });
 
-        // TODO: Consider sorting actual todos in same order
-
         return sortedTodos.flat(2);
     }
 
