@@ -484,24 +484,25 @@ export class UIBuilder {
         const submitBtn = this.#makeElement("button", "submit-btn", "Submit");
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            switch(modalType) {
-                case "title":
-                    todo.changeTitle(input.value);
-                    break;
-                case "description":
-                    todo.changeDesc(input.value);
-                    break;
-                case "due-date":
-                    // I guess Javascript's Date object is a little weird when parsing
-                    // strings to set the date. Depending on the user's timezone
-                    // '2025-9-23' the day may or may not evaluate to the 22nd.
-                    // But by replacing the dashes with a forward slash, it's guaranteed
-                    // to be the date we expect.
-                    if(input.value !== "")
-                        todo.changeDueDate(new Date(input.value.replace(/-/g, '\/')));
-                    break;
+            if(input.value !== "") {
+                switch(modalType) {
+                    case "title":
+                        todo.changeTitle(input.value);
+                        break;
+                    case "description":
+                        todo.changeDesc(input.value);
+                        break;
+                    case "due-date":
+                        // I guess Javascript's Date object is a little weird when parsing
+                        // strings to set the date. Depending on the user's timezone
+                        // '2025-9-23' the day may or may not evaluate to the 22nd.
+                        // But by replacing the dashes with a forward slash, it's guaranteed
+                        // to be the date we expect.
+                            todo.changeDueDate(new Date(input.value.replace(/-/g, '\/')));
+                        break;
+                }
+                DataHandler.saveData(this.#projects);
             }
-            DataHandler.saveData(this.#projects);
             this.#buildTodoView(todo, project);
             modal.close();
         });
