@@ -120,6 +120,7 @@ export class UIBuilder {
         projectNameEntry.setAttribute("type", "text");
         form.appendChild(projectNameEntry);
 
+        const btnSection = this.#makeElement("div", "modal-btns");
         const submitBtn = this.#makeElement("button", "submit-btn", "Submit");
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -136,10 +137,11 @@ export class UIBuilder {
             e.preventDefault();
             modal.close();
         });
+        btnSection.appendChild(submitBtn);
+        btnSection.appendChild(closeBtn);
 
         modal.appendChild(form);
-        modal.appendChild(submitBtn);
-        modal.appendChild(closeBtn);
+        modal.appendChild(btnSection);
         return modal;
     } 
 
@@ -429,6 +431,7 @@ export class UIBuilder {
         form.appendChild(dueDate);
         form.appendChild(prioritySelector);
 
+        const btnSection = this.#makeElement("div", "modal-btns");
         const submitBtn = this.#makeElement("button", "submit-btn", "Submit");
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -449,10 +452,11 @@ export class UIBuilder {
             e.preventDefault();
             modal.close();
         });
+        btnSection.appendChild(submitBtn);
+        btnSection.appendChild(closeBtn);
 
         modal.appendChild(form);
-        modal.appendChild(submitBtn);
-        modal.appendChild(closeBtn);
+        modal.appendChild(btnSection);
 
         return modal;
     }
@@ -481,6 +485,7 @@ export class UIBuilder {
         }
         form.appendChild(input);
 
+        const btnSection = this.#makeElement("div", "modal-btns");
         const submitBtn = this.#makeElement("button", "submit-btn", "Submit");
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -512,10 +517,11 @@ export class UIBuilder {
             e.preventDefault();
             modal.close();
         });
+        btnSection.appendChild(submitBtn);
+        btnSection.appendChild(closeBtn);
 
         modal.appendChild(form);
-        modal.appendChild(submitBtn);
-        modal.appendChild(closeBtn);
+        modal.appendChild(btnSection);
         return modal;
     }
 }
