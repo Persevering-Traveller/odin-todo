@@ -119,14 +119,18 @@ export class UIBuilder {
 
         const projectNameEntry = this.#makeElement("input", "form-name-entry");
         projectNameEntry.setAttribute("type", "text");
+        const colorPicker = this.#makeElement("input", "project-color-picker");
+        colorPicker.setAttribute("type", "color");
+        colorPicker.defaultValue = "#FFFFFF"; // White is default color
         form.appendChild(projectNameEntry);
+        form.appendChild(colorPicker);
 
         const btnSection = this.#makeElement("div", "modal-btns");
         const submitBtn = this.#makeElement("button", "submit-btn", "Submit");
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
             if(projectNameEntry.value !== "") {
-                this.#projects.push(new Project(projectNameEntry.value));
+                this.#projects.push(new Project(projectNameEntry.value, colorPicker.value));
                 DataHandler.saveData(this.#projects);
             }
             modal.close();
