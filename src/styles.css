@@ -35,6 +35,12 @@
     margin-bottom: 16px;
 }
 
+#modal > form > select {
+    background-color: rgba(0, 0, 0, 0%);
+    border: 1px solid black;
+    padding: 4px;
+}
+
 .all-projects-title {
     font-size: 3rem;
     font-weight: bold;
@@ -78,7 +84,8 @@
 .todo-info-edit-btn:hover,
 .todo-info-priority:hover,
 .modal-btns > .submit-btn:hover,
-.modal-btns > .close-btn:hover {
+.modal-btns > .close-btn:hover,
+#modal > form > select:hover {
     background-color: rgba(0, 0, 0, 10%);
 }
 
