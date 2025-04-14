@@ -9,6 +9,16 @@
     border-radius: 16px;
 }
 
+#modal > .submit-btn,
+#modal > .close-btn {
+    border: 1px solid black;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, 0%);
+    padding: 6px 12px;
+    margin: 4px;
+    cursor: pointer;
+}
+
 .all-projects-title {
     font-size: 3rem;
     font-weight: bold;
@@ -50,7 +60,9 @@
 .add-todo-btn:hover,
 .delete-btn:hover,
 .todo-info-edit-btn:hover,
-.todo-info-priority:hover {
+.todo-info-priority:hover,
+#modal > .submit-btn:hover,
+#modal > .close-btn:hover {
     background-color: rgba(0, 0, 0, 10%);
 }
 
