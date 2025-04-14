@@ -13,6 +13,11 @@
     border-radius: 16px;
 }
 
+.modal-btns {
+    display: flex;
+    gap: 8px;
+}
+
 .modal-btns > .submit-btn,
 .modal-btns > .close-btn {
     border: 1px solid black;
