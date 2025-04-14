@@ -83,7 +83,7 @@ export class UIBuilder {
             e.stopPropagation();
             // Open a modal that asks "Are you sure?"
             const modal = this.#buildDeletionConfirmationModal(card, project);
-            modal.show();
+            modal.showModal();
         });
         card.appendChild(deleteBtn);
 
