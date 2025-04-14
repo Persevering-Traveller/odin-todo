@@ -69,8 +69,8 @@
 .delete-btn:hover,
 .todo-info-edit-btn:hover,
 .todo-info-priority:hover,
-#modal > .submit-btn:hover,
-#modal > .close-btn:hover {
+.modal-btns > .submit-btn:hover,
+.modal-btns > .close-btn:hover {
     background-color: rgba(0, 0, 0, 10%);
 }
 
