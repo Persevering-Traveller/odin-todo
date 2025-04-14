@@ -128,7 +128,8 @@
     display: grid;
     grid-template-columns: 32px 1fr 32px;
     grid-column: 1 span;
-    border-bottom: 1px black;
+    border-radius: 16px;
+    padding: 8px;
     cursor: pointer;
 }
 
