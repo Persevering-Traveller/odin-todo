@@ -123,8 +123,10 @@ export class UIBuilder {
         const submitBtn = this.#makeElement("button", "submit-btn", "Submit");
         submitBtn.addEventListener("click", (e) => {
             e.preventDefault();
-            this.#projects.push(new Project(projectNameEntry.value));
-            DataHandler.saveData(this.#projects);
+            if(projectNameEntry.value !== "") {
+                this.#projects.push(new Project(projectNameEntry.value));
+                DataHandler.saveData(this.#projects);
+            }
             modal.close();
             this.buildAllProjectsView();
         });
