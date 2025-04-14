@@ -79,7 +79,8 @@ export class UIBuilder {
             this.#buildProjectView(project);
         });
         const deleteBtn = this.#makeElement("button", "project-card-delete-btn", "X");
-        deleteBtn.addEventListener("click", () => {
+        deleteBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
             // Open a modal that asks "Are you sure?"
             const modal = this.#buildDeletionConfirmationModal(card, project);
             modal.show();
@@ -151,6 +152,7 @@ export class UIBuilder {
 
         const prompt = this.#makeElement("div", "deletion-conf-prompt", "Are you sure you want to delete this project? (You'll lose all of your Todos)");
 
+        const btnSection = this.#makeElement("div", "modal-btns");
         const confirmBtn = this.#makeElement("button", "submit-btn", "Confirm");
         confirmBtn.addEventListener("click", () => {
             this.#projects = this.#projects.filter(proj => proj.getName() !== project.getName());
@@ -164,10 +166,11 @@ export class UIBuilder {
         cancelBtn.addEventListener("click", () => {
             modal.close();
         });
+        btnSection.appendChild(confirmBtn);
+        btnSection.appendChild(cancelBtn);
 
         modal.appendChild(prompt);
-        modal.appendChild(confirmBtn);
-        modal.appendChild(cancelBtn);
+        modal.appendChild(btnSection);
         return modal;
     }
 
